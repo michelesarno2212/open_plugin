@@ -1,7 +1,9 @@
 #!/bin/bash
 
+# DevStack plugin.sh file for open_plugin
+
 function pre_install_open_plugin {
-    echo_summary "Pre-install open_plugin"
+    echo_summary "Pre-installing open_plugin"
 }
 
 function install_open_plugin {
@@ -11,21 +13,49 @@ function install_open_plugin {
 
 function configure_open_plugin {
     echo_summary "Configuring open_plugin"
-    iniset $HORIZON_LOCAL_SETTINGS OPENSTACK_OPEN_PLUGIN_ENABLED True
+
+    # Abilita il plugin su Horizon (opzionale)
+    if [[ -n "$HORIZON_LOCAL_SETTINGS" ]]; then
+        iniset $HORIZON_LOCAL_SETTINGS OPENSTACK_OPEN_PLUGIN_ENABLED True
+    fi
 }
 
-# DevStack hooks
-if is_service_enabled horizon; then
-    case "$1" in
-        stack)
-            case "$2" in
-                install)
-                    install_open_plugin
-                    ;;
-                post-config)
-                    configure_open_plugin
-                    ;;
-            esac
+function init_open_plugin {
+    echo_summary "Initializing open_plugin"
+}
+
+function start_open_plugin {
+    echo_summary "Starting open_plugin"
+}
+
+function stop_open_plugin {
+    echo_summary "Stopping open_plugin"
+}
+
+function cleanup_open_plugin {
+    echo_summary "Cleaning up open_plugin"
+}
+
+# Hook DevStack
+if is_service_enabled open_plugin; then
+    case $1 in
+        pre-install)
+            pre_install_open_plugin
+            ;;
+        install)
+            install_open_plugin
+            ;;
+        post-config)
+            configure_open_plugin
+            ;;
+        extra)
+            init_open_plugin
+            ;;
+        unstack)
+            stop_open_plugin
+            ;;
+        clean)
+            cleanup_open_plugin
             ;;
     esac
 fi
