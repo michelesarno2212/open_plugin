@@ -1,2 +1,5 @@
-enable_plugin open_plugin git://github.com/tuo-repo/open_plugin devstack-plugin
 enable_service open_plugin
+
+OPEN_PLUGIN_DIR=$DEST/open_plugin
+OPEN_PLUGIN_LOG_DIR=$DEST/logs/open_plugin
+OPEN_PLUGIN_CACHE_DIR=$DEST/cache/open_plugin
