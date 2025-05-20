@@ -1,0 +1,2 @@
+enable_plugin open_plugin git://github.com/tuo-repo/open_plugin devstack-plugin
+enable_service open_plugin

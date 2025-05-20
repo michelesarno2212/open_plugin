@@ -1,0 +1,4 @@
+Django>=3.2
+djangorestframework>=3.12
+python-keystoneclient>=4.0
+oslo.config>=8.0.0
